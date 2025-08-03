@@ -65,13 +65,19 @@
 
 6. Получить SSL-сертификат (если не получен):
 
+    ```
    sudo apt install -y certbot python3-certbot-nginx
    sudo certbot --nginx -d your-domain.com
+   ```
 
 7. Перезагрузить nginx:
 
+    ```
    sudo systemctl reload nginx
+    ```
 
 8. Убедиться, что работает:
 
+    ```
    curl -I https://your-domain.com
+    ```
