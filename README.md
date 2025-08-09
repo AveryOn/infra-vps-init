@@ -23,8 +23,9 @@
 3. Убедиться, что домен указывает на сервер (A-запись DNS)
 
 4. Создать конфигурационный файл для домена:
-
-   sudo nano /etc/nginx/conf.d/your-domain.conf
+```bash
+sudo nano /etc/nginx/conf.d/your-domain.conf
+```
 
    Пример содержимого:
 
