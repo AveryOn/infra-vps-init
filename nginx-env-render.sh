@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ENV_FILE="${1:-/etc/nginx/.env}"
+# Определяем путь для EnvironmentFile
+ENV_DIR="/etc/default"
+if [[ -f /etc/os-release ]]; then
+  . /etc/os-release
+  if [[ "${ID_LIKE:-}" =~ (rhel|fedora|centos) || "${ID:-}" =~ (rhel|fedora|centos) ]]; then
+    ENV_DIR="/etc/sysconfig"
+  fi
+fi
+ENV_FILE="${ENV_DIR}/myenv"
 DIRS=("/etc/nginx/sites-available" "/etc/nginx/conf.d")
 
 # envsubst нужен
