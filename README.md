@@ -127,7 +127,7 @@ sudo bash load-global-env.sh /path/to/other.env
 
   3. Запусти:
    ```bash
-   sudo ./nginx-env-render.sh             # возьмёт /etc/default/myenv по умолчанию
+   sudo nginx-env-render.sh             # возьмёт /etc/default/myenv по умолчанию
    ```
 
   4. Скрипт обновит конфиги и перезагрузит Nginx.
