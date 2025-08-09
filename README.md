@@ -98,11 +98,12 @@
    1. Заполни `.env` файл в текущей директории откуда будешь вызывать [`load-global-env`](./load-global-env.sh). _(либо нужно знать путь до уже существующего .env)_
    
    2. Запусти:
-    ```bash
-    sudo bash load-global-env.sh
-    ```
+```bash
+sudo bash load-global-env.sh
+```
 
-    Либо явно передаем путь первым аргументом:
+Либо явно передаем путь первым аргументом:
+
 ```bash
 sudo bash load-global-env.sh /path/to/other.env
 ```
