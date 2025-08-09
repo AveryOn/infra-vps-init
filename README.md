@@ -28,7 +28,7 @@
 
    Пример содержимого:
 
-   ---
+   ```
    server {
        listen 80;
        server_name your-domain.com;
@@ -55,7 +55,7 @@
            proxy_cache_bypass $http_upgrade;
        }
    }
-   ---
+   ```
 
 5. Проверить корректность конфигурации:
 
@@ -133,7 +133,7 @@ sudo bash load-global-env.sh /path/to/other.env
   4. Скрипт обновит конфиги и перезагрузит Nginx.
  
 ---
-
+ 
 # Как вручную перезагружать службу NGINX:
 
  Для этого есть утилита - [`restart-nginx`](./restart-nginx.sh)
