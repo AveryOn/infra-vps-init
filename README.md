@@ -136,7 +136,7 @@ sudo bash load-global-env.sh /path/to/other.env
 
 # Как вручную перезагружать службу NGINX:
 
- Для этого есть уталита - [`restart-nginx`](./restart-nginx.sh)
+ Для этого есть утилита - [`restart-nginx`](./restart-nginx.sh)
  чтобы ее использовать, нужно сделать скрипт исполняемым и вызывать его где угодно в терминале как `restart-nginx`
 
  * TODO: внедрить создание скрипта в setup стадию
