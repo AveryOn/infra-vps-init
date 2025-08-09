@@ -1,0 +1,32 @@
+server {
+  server_name ${MUSIC_SUBDOMAIN}.${SERVER_NAME_BASE};
+
+  root /var/www/${MUSIC_SUBDOMAIN};
+  index index.html;
+
+  location / { try_files $uri /index.html; }
+
+  # файлы: ТОЛЬКО внутренний доступ
+  location /music/ {
+    internal;
+    alias /root/Music/;
+    types { audio/mpeg mp3; audio/flac flac; }
+    add_header Content-Disposition "inline";
+    sendfile on;
+  }
+
+  # весь доступ — через бэк
+  location /api/ {
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_pass http://127.0.0.1:${MUSIC_API_PORT};
+  }
+
+  listen 443 ssl;
+  ssl_certificate /etc/letsencrypt/live/music.xyz-avery.online/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/music.xyz-avery.online/privkey.pem;
+  include /etc/letsencrypt/options-ssl-nginx.conf;
+  ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+}
