@@ -88,7 +88,7 @@
 
 # Как работать с подстановкой ENV переменных в NGINX-конфиги:
 
-1. Работа со скриптом [`load-global-env`](./load-global-env.sh):
+### 1. Работа со скриптом [`load-global-env`](./load-global-env.sh):
 
  Это скрипт для предварительной загрузки всех env переменных в файл `/etc/default/myenv`.
  Переменные читает из файла `.env` в той директории откуда вызывается скрипт:
@@ -103,12 +103,12 @@
     ```
 
     Либо явно передаем путь первым аргументом:
-     ```bash
-     sudo bash load-global-env.sh /path/to/other.env
-     ```
+```bash
+sudo bash load-global-env.sh /path/to/other.env
+```
 
 
-2. Работа со скриптом [`nginx-env-render.sh`](./nginx-env-render.sh):
+### 2. Работа со скриптом [`nginx-env-render.sh`](./nginx-env-render.sh):
 
  — утилита для автоматической подстановки значений переменных из `/etc/default/myenv` в конфиги Nginx и их перезагрузки.
 
