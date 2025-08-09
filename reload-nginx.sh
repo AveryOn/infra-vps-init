@@ -5,6 +5,6 @@ echo "[*] Проверка конфига nginx..."
 nginx -t
 
 echo "[*] Перезагрузка nginx..."
-systemctl reload nginx
+sudo systemctl restart nginx
 
 echo "[✓] Готово"
