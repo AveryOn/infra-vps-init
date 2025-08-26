@@ -74,17 +74,36 @@ npm run build
 sudo cp ~/services/infra-vps-init/nginx_templates/deployments.conf /etc/nginx/conf.d/
 ```
 
+* !!! Перед дальнейшими махинациями убедись что в провайдере твоего домена есть A запись с * -> 123.1.2.3 (your_ip)
+
+* Выписать сертификаты под этот сервис чтобы получать доступ через https по url:
+```bash
+sudo systemctl stop nginx
+export $(grep -v '^#' /etc/default/myenv | xargs) \
+&& sudo certbot certonly --standalone -d "${DEPLOYMENTS_SUBDOMAIN}.${SERVER_NAME_BASE}"
+sudo systemctl start nginx
+```
+
 * Сгенерировать nginx конфиг с подставленными env переменными для deployments.conf:
 ```bash
 sudo bash ~/services/infra-vps-init/nginx-env-render.sh
 ```
 
+* Запустить сервис deployments:
+```bash
+cd ~/services/deployments/
+mkdir -p ~/services/deployments/dist/tmp
+export $(grep -v '^#' /etc/default/myenv | xargs)
+envsubst < ~/services/deployments/dist/deploy/production.env > ~/services/deployments/dist/tmp/production.resolved.env
+set -o allexport
+. ~/services/deployments/dist/tmp/production.resolved.env
+set +o allexport
+rm -rf ~/services/deployments/dist/tmp/production.resolved.env
+npm run pm2:start
+```
+
 ---
 
-## Step 6 
-```bash
-
-```
 
 
 # Как работать с подстановкой ENV переменных в NGINX-конфиги:
