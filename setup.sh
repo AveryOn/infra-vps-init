@@ -14,6 +14,10 @@ if ! command -v curl &> /dev/null; then
   apt update && apt install -y curl
 fi
 
+# Docker и docker compose
+apt install -y docker.io docker-compose-plugin
+
+# Установка NVM + Node.js
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
 export NVM_DIR="$HOME/.nvm"
@@ -32,8 +36,7 @@ npm -v
 npm install -g pm2
 
 # Установка nginx и certbot
-apt update
-apt install -y nginx certbot python3-certbot-nginx git
+apt install -y nginx certbot python3-certbot-nginx
 
 echo "[*] starting interactive installer..."
 # node installer/index.js
