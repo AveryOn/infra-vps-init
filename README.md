@@ -7,85 +7,62 @@
 ---
 
 ## Step 1:
-> Запустить ./setup.sh
-
-# Установка и настройка nginx конфига для Node.js с HTTPS
-
-1. Установить nginx (если не установлен):
-
-   sudo apt update
-   sudo apt install -y nginx
-
-2. Проверить, что nginx работает:
-
-   sudo systemctl status nginx
-
-3. Убедиться, что домен указывает на сервер (A-запись DNS)
-
-4. Создать конфигурационный файл для домена:
+> выполнить:
 ```bash
-sudo nano /etc/nginx/conf.d/your-domain.conf
+ apt update && apt install -y git
+ mkdir -p ~/services
+ cd ~/services
+ git clone https://github.com/AveryOn/infra-vps-init
+ cd ~/services/infra-vps-init/
 ```
 
-   Пример содержимого:
+---
 
-   ```
-   server {
-       listen 80;
-       server_name your-domain.com;
-
-       return 301 https://$host$request_uri;
-   }
-
-   server {
-       listen 443 ssl;
-       server_name your-domain.com;
-
-       ssl_certificate /etc/letsencrypt/live/your-domain.com/fullchain.pem;
-       ssl_certificate_key /etc/letsencrypt/live/your-domain.com/privkey.pem;
-
-       ssl_protocols TLSv1.2 TLSv1.3;
-       ssl_ciphers HIGH:!aNULL:!MD5;
-
-       location / {
-           proxy_pass http://127.0.0.1:3000;
-           proxy_http_version 1.1;
-           proxy_set_header Upgrade $http_upgrade;
-           proxy_set_header Connection 'upgrade';
-           proxy_set_header Host $host;
-           proxy_cache_bypass $http_upgrade;
-       }
-   }
-   ```
-
-5. Проверить корректность конфигурации:
-
-    ```
-    sudo nginx -t
-    ```
-
-6. Получить SSL-сертификат (если не получен):
-
-    ```
-   sudo apt install -y certbot python3-certbot-nginx
-   sudo certbot --nginx -d your-domain.com
-   ```
-
-7. Перезагрузить nginx:
-
-    ```
-   sudo systemctl reload nginx
-    ```
-
-8. Убедиться, что работает:
-
-    ```
-   curl -I https://your-domain.com
-    ```
-
-
+## Step 2:
+> Запустить ./setup.sh
 
 ---
+
+## Step 3:
+ > Выполнить:
+ ```bash
+ cp ~/services/infra-vps-init/.env.example ~/services/infra-vps-init/.env
+ ```
+
+---
+
+## Step 4:
+ > Открыть через nano новый файл .env чтобы заполнить переменные:
+ ```bash
+nano ~/services/infra-vps-init/.env
+ ```
+
+ * После внесенный правок сохранить `Ctrl + O` -> `Ctrl + X`
+
+---
+
+## Step 5 - Работа со скриптом [`load-global-env`](./load-global-env.sh):
+ Это скрипт для предварительной загрузки всех env переменных в файл `/etc/default/myenv`.
+ Переменные читает из файла `.env` в той директории откуда вызывается скрипт:
+
+  * Использование:
+  
+   1. Заполни `.env` файл в текущей директории откуда будешь вызывать [`load-global-env`](./load-global-env.sh). _(либо нужно знать путь до уже существующего .env)_
+   
+   2. Запусти:
+```bash
+sudo bash ~/services/infra-vps-init/load-global-env.sh
+```
+
+Либо явно передаем путь первым аргументом:
+
+```bash
+sudo bash ~/services/infra-vps-init/load-global-env.sh /path/to/other.env
+```
+
+---
+
+
 
 # Как работать с подстановкой ENV переменных в NGINX-конфиги:
 

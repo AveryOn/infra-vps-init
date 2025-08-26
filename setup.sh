@@ -47,7 +47,14 @@ nvm use --lts
 node -v
 npm -v
 
+# Установка pm2
 npm install -g pm2
+TARGET_USER=$(whoami)
+pm2 startup systemd -u $TARGET_USER --hp /home/$TARGET_USER
+pm2 save
+systemctl enable pm2-$TARGET_USER
+systemctl start pm2-$TARGET_USER
+
 
 # Установка nginx и certbot
 apt install -y nginx certbot python3-certbot-nginx
