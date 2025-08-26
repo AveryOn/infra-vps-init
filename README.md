@@ -62,7 +62,7 @@ sudo bash ~/services/infra-vps-init/load-global-env.sh /path/to/other.env
 
 ---
 
-## Step 5 - Стянуть и настроить deployments сервис:
+## Step 6 - Стянуть и настроить deployments сервис:
 ```bash
 git clone https://github.com/AveryOn/vps-api-handler ~/services/deployments/
 cd ~/services/deployments/ && npm i
@@ -71,12 +71,17 @@ npm run build
 
 * Добавить под него отдельный домен через nginx:
 ```bash
-sudo cp ~/services/deployments/nginx_templates/deployments.conf /etc/nginx/conf.d
+sudo cp ~/services/infra-vps-init/nginx_templates/deployments.conf /etc/nginx/conf.d/
+```
+
+* Сгенерировать nginx конфиг с подставленными env переменными для deployments.conf:
+```bash
+sudo bash ~/services/infra-vps-init/nginx-env-render.sh
 ```
 
 ---
 
-## Step 6 - 
+## Step 6 
 ```bash
 
 ```
